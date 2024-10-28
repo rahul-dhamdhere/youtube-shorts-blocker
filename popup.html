@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { width: 200px; padding: 10px; }
+        button { width: 100%; padding: 5px; }
+    </style>
+</head>
+<body>
+    <button id="toggleButton">Enable/Disable Blocker</button>
+    <script src="popup.js"></script>
+</body>
+</html>
+
+// Add popup.js
+document.getElementById('toggleButton').addEventListener('click', () => {
+    chrome.storage.sync.get('enabled', (data) => {
+        const newState = !data.enabled;
+        chrome.storage.sync.set({ enabled: newState });
+        chrome.tabs.reload();
+    });
+});
